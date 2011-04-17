@@ -66,5 +66,6 @@ else
     else 
       echo "File $ALIASES doesn't seem to exist, skipping alias, please follow the manual instruction in the README"
       exit
+    fi
   fi
 fi
