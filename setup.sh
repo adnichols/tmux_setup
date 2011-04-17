@@ -27,7 +27,7 @@ if [ ! -d $SCRIPT_DIR ] ; then
 
 # If we need to create the directory - we check with the user & then do it
   if [ $CREATE_DIR == 'y' -o $CREATE_DIR == 'Y' ] ; then
-    echo "This will create the directory \"$SCRIPT_DIR\" relative to your CWD - currently \"$CWD\""
+    echo "This will create the directory \"$SCRIPT_DIR\" relative to your CWD - currently \"$PWD\""
     read -p "Press ENTER to continue: " CONT
     mkdir -v $SCRIPT_DIR
 
