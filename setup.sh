@@ -11,12 +11,12 @@ if [ ! -f .2993b6b548000a80989a20549e7558a5 ] ; then
 fi
 
 # Install scripts
-read -p "By default scripts are stored in ~/bin - would you like them here? [y/n]: " CONT
+read -p "By default scripts are stored in $HOME/bin - would you like them here? [y/n]: " CONT
 
 if [ $CONT == 'y' -o $CONT == 'Y' ] ; then
-  SCRIPT_DIR='~/bin'
+  SCRIPT_DIR="$HOME/bin"
 else
-  read -p "OK, what directory would you like them in? : " NEW_DIR
+  read -p "OK, what directory would you like them in? (full path please) : " NEW_DIR
   echo "Using \"$NEW_DIR\" for scripts"
   SCRIPT_DIR=$NEW_DIR
 fi
@@ -29,7 +29,7 @@ if [ ! -d $SCRIPT_DIR ] ; then
   if [ $CREATE_DIR == 'y' -o $CREATE_DIR == 'Y' ] ; then
     echo "This will create the directory \"$SCRIPT_DIR\" relative to your CWD - currently \"$CWD\""
     read -p "Press ENTER to continue: " CONT
-    mkdir $SCRIPT_DIR
+    mkdir -v $SCRIPT_DIR
 
 # We can't really proceed w/out a destination directory
   else
@@ -41,17 +41,18 @@ else
 # Start copying scripts
   for f in bin/*
   do
-    cp -i $f $SCRIPT_DIR/$f
+    cp -vi $f $SCRIPT_DIR/$f
   done
+  echo "Scripts copied to \"$SCRIPT_DIR\""
 
 # Discover what aliases file, if any, is in use
 
 # First check .bashrc
-  ALIASES=egrep -m 1 -o ' \S*\.\S*alias\S*' ~/.bashrc
+  ALIASES=egrep -m 1 -o ' \S*\.\S*alias\S*' $HOME/.bashrc
 
 # If that guy doesn't return anything, check bash_profile
   if [ -z $ALIASES ] ; then
-    ALIASES=egrep -m 1 -o ' \S*\.\S*alias\S*' ~/.bash_profile
+    ALIASES=egrep -m 1 -o ' \S*\.\S*alias\S*' $HOME/.bash_profile
   fi
 
 # If the variable is still empty we abort, otherwise append to aliases file
@@ -59,6 +60,11 @@ else
     echo "Sorry, couldn't determine where to put your alias, please follow the manual instructions for that part"
     exit
   else 
-    cat aliases >> $ALIASES
+    if [ -f $ALIASES ] ; then
+      echo "Appending aliases to \"$ALIASES\""
+      cat aliases >> $ALIASES
+    else 
+      echo "File $ALIASES doesn't seem to exist, skipping alias, please follow the manual instruction in the README"
+      exit
   fi
 fi
