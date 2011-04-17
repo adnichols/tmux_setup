@@ -29,6 +29,8 @@ if [ ! -d $SCRIPT_DIR ] ; then
   if [ $CREATE_DIR == 'y' -o $CREATE_DIR == 'Y' ] ; then
     echo "This will create the directory \"$SCRIPT_DIR\" relative to your CWD - currently \"$PWD\""
     read -p "Press ENTER to continue: " CONT
+
+    echo "=== Creating bin directory"
     mkdir -v $SCRIPT_DIR
 
 # We can't really proceed w/out a destination directory
@@ -36,36 +38,43 @@ if [ ! -d $SCRIPT_DIR ] ; then
     echo "Aborting, cannot copy scripts if destination directory does not exist"
     exit
   fi
+fi
 
-else
 # Start copying scripts
-  for f in bin/*
-  do
-    cp -vi $f $SCRIPT_DIR/$f
-  done
-  echo "Scripts copied to \"$SCRIPT_DIR\""
+echo "=== Copying scripts to bin directory"
+cd bin
+for f in *
+do
+  cp -vi $f $SCRIPT_DIR/$f
+done
+echo "=== Scripts copied to \"$SCRIPT_DIR\""
+cd ..
 
 # Discover what aliases file, if any, is in use
 
 # First check .bashrc
-  ALIASES=egrep -m 1 -o ' \S*\.\S*alias\S*' $HOME/.bashrc
+ALIASES=`egrep -m 1 -o '\.\S*alias\S*' $HOME/.bashrc`
 
 # If that guy doesn't return anything, check bash_profile
-  if [ -z $ALIASES ] ; then
-    ALIASES=egrep -m 1 -o ' \S*\.\S*alias\S*' $HOME/.bash_profile
-  fi
+if [ -z $ALIASES ] ; then
+  ALIASES=`egrep -m 1 -o '\.\S*alias\S*' $HOME/.bash_profile`
+fi
 
 # If the variable is still empty we abort, otherwise append to aliases file
-  if [ -z $ALIASES ] ; then
-    echo "Sorry, couldn't determine where to put your alias, please follow the manual instructions for that part"
-    exit
-  else 
-    if [ -f $ALIASES ] ; then
-      echo "Appending aliases to \"$ALIASES\""
-      cat aliases >> $ALIASES
-    else 
-      echo "File $ALIASES doesn't seem to exist, skipping alias, please follow the manual instruction in the README"
-      exit
-    fi
+if [ -z $ALIASES ] ; then
+  echo "Sorry, couldn't determine where to put your alias, please follow the manual instructions for that part"
+  exit
+else 
+  echo "Found reference to \"$ALIASES\", using that"
+  if [ ! -f $ALIASES ] ; then
+    echo "File \"$HOME/$ALIASES\" doesn't seem to exist, creating it, you'll have to re-source it to get this all to work"
+    touch $HOME/$ALIASES
   fi
+  echo "=== Appending aliases to \"$HOME/$ALIASES\""
+  cat aliases >> $HOME/$ALIASES
 fi
+
+echo ""
+echo "Setup COMPLETE!"
+echo "Start tmux with: tmux -L prod"
+echo "You will need to logout and log back in to source aliases & then type 'Attach' to connect to your tmux session"
