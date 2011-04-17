@@ -10,7 +10,7 @@ ABOUT
 
 I have put together all the various components of my tmux configuration
 for someone to download and easily setup. This is covered in a blog 
-post HERE. 
+post at http://www.opsbs.com/?p=261.
 
 Most of this is intended to make remote administration over ssh easier so
 if you are just looking for a tmux config, there are lots of examples out
