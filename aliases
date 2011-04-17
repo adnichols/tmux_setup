@@ -1,0 +1,2 @@
+# Setup alias to source ssh variables using command 'fixssh'
+alias fixssh='source ~/bin/fixssh'
