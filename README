@@ -55,6 +55,10 @@ $ cat aliases >> ~/.bash_aliases
 $ cat aliases >> ~/.bashrc
 $ cat aliases >> ~/.bash_profile
 
+4. Copy the tmux configuration into place (if you don't already have one)
+
+$ cp -i tmux.conf ~/.tmux.conf
+
 USAGE
 =============================================================================
 
