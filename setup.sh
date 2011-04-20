@@ -50,6 +50,10 @@ done
 echo "=== Scripts copied to \"$SCRIPT_DIR\""
 cd ..
 
+echo "=== Copying tmux.conf into place"
+cp -vi tmux.conf $HOME/.tmux.conf
+echo "=== Done copying tmux.conf"
+
 # Discover what aliases file, if any, is in use
 
 # First check .bashrc
