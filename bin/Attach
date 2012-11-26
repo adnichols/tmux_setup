@@ -4,9 +4,6 @@
 # Get new ssh vars
 grabssh
 
-# Attach to running tmux session
-if [ ${1} ] ; then
-  tmux -L ${1} attach-session
-else 
-  tmux -L prod attach-session
-fi
+SESSION_NAME=${1:-prod}
+
+tmux -L ${SESSION_NAME} attach-session || tmux -L ${SESSION_NAME}
