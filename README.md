@@ -50,24 +50,26 @@ Hard way (or, if the Easy Way doesn't work)
    (if you don't want to use this directory you don't have to
     but you will have to tweak some of the scripts to work)
 
-    $ mkdir ~/bin
+`$ mkdir ~/bin`
 
 2. Copy the contents of bin/* to your new bin directory
 
-    $ cp -i bin/* ~/bin/
+`$ cp -i bin/* ~/bin/`
 
 3. Add the aliases in the 'aliases' file to a location where they 
    will get sourced upon login
 
 One of these:
 
-    $ cat aliases >> ~/.bash_aliases
-    $ cat aliases >> ~/.bashrc
-    $ cat aliases >> ~/.bash_profile
+```
+$ cat aliases >> ~/.bash_aliases
+$ cat aliases >> ~/.bashrc
+$ cat aliases >> ~/.bash_profile
+```
 
 4. Copy the tmux configuration into place (if you don't already have one)
 
-    $ cp -i tmux.conf ~/.tmux.conf
+`$ cp -i tmux.conf ~/.tmux.conf`
 
 USAGE
 =============================================================================
@@ -76,11 +78,11 @@ When you login to the host you are going to run tmux from, you will want to
 fire up tmux for the first time. The 'Attach' script by default uses
 a session name of 'prod' - so you can start up your session like this:
 
-    $ tmux -L prod
+`$ tmux -L prod`
 
 Once that is setup, each time you login to your host you simply type:
 
-    $ Attach
+`$ Attach`
 
 This will connect you to your tmux session. All the sessions in an existing
 tmux session will have your OLD ssh variables. To update any given session
@@ -93,7 +95,7 @@ tweak your path you can, but I prefer to be able to run ssh directly too.
 
 To ssh to a host:
 
-    $ sc somehostname
+`$ sc somehostname`
 
 This will do 3 things:
 1. Fire up a new tmux window with the name set to the hostname of the host
