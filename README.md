@@ -1,3 +1,10 @@
+NOTE: This project is DEPRECATED and while you are welcome to use it, you may 
+find these projects more interesting and updated:
+
+[sc_tmux](adnichols/sc_tmux) - The 'fixssh' portion of this setup moved into a gem
+[tmux-and-vim](adnichols/tmux-and-vim) - My current tmux + vim setup w/ setup script
+
+
 Aaron Nichol's tmux setup files
 
 CONTACT
