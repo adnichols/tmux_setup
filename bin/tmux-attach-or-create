@@ -1,0 +1,9 @@
+#!/bin/sh
+# Attach to existing ssh session
+
+# Get new ssh vars
+grabssh
+
+SESSION_NAME=${1:-prod}
+
+tmux -L ${SESSION_NAME} attach-session || tmux -L ${SESSION_NAME}
