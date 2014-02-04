@@ -3,10 +3,14 @@
 
 # This is a security test I like to perform - we want to show what
 # ssh binary is being used to prevent any trickery
-WHICH_SSH=`which ssh`
+WHICH_SSH=`which ssh 2> /dev/null`
+
+# Where is sc-ssh?
+SC_SSH=`which sc-ssh 2> /dev/null`
+
 
 # Show only the IPv4 address or the start of  the hostname.
 HOST=`grep -o '^\([0-9]\+\.\)\{3\}[0-9]\+\|^[^.]\+' <<<"${1}"`
 
 # Start tmux window
-tmux new-window -n ${HOST} "echo 'Using: $WHICH_SSH' ; ~/bin/sc-ssh ${1}"
+tmux new-window -n ${HOST} "echo 'Using: $WHICH_SSH' ; $SC_SSH ${1}"
